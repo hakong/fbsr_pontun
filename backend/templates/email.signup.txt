@@ -1,0 +1,6 @@
+Sæl(l) {{name}},
+
+Til að fara inn á þína eigin pöntunarsíðu fyrir hóppöntun frá {{vendor}} smelltu á eftirfarandi hlekk:
+{{url}}
+
+Athugið að pöntunarfrestur er til {{closes.strftime("%Y-%m-%d %H:%M")}}.

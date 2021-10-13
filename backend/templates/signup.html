@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div>
+    <h1>Skráning fyrir pöntun</h1>
+    <p>Hér er hægt að skrá áhuga á því að taka þátt í hóppöntun á búnaði. Vinsamlegast fyllið út netfangið ykkar að neðan (sama netfang og ykkur barst áður tölvupóstur á) og viðeigandi pöntun. Í kjölfarið fáið þið annan tölvupóst með hlekk á ykkar eigin pöntunarsíðu.</p>
+    {% if error %}
+      <div class="alert alert-warning" role="alert">{{error}}</div>
+    {% endif %}
+    {% if message %}
+      <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endif %}
+    <form action="{{url}}" method="post">
+      <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Netfang</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" name="email">
+          <small id="emailHelp" class="form-text text-muted">Einungis netföng úr félagatali FBSR (D4H) eru gild.</small>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="listing" class="col-sm-2 col-form-label">Pöntun</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="listing" name="listing">
+            {% for listing in listings %}
+            <option value="{{listing.id}}" {% if listing.selected %}selected="selected"{% endif %}>{{listing.title}}</option>
+            {% endfor %}
+          </select>
+          <small id="listingHelp" class="form-text text-muted">Einungis opnar pantanir sjást í þessum lista.</small>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Skrá</button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+Sæl(l) {{name}},
+
+Þú hefur nú óskað eftir staðfestingu á pöntun frá {{vendor}}.
+Þú hefur pantað {{qty}} hlut(i) með áætlað kaupverð samtals {{"{:,.0f}".format(total).replace(",",".")}} íslenskar krónur. 
+Athugið að verð er háð gengi og flutningskostnaði og getur því breyst.
+Til að endanlega staðfesta pöntun, smellið á hlekkinn hér að neðan:
+{{confirm_url}}
+
+Til að hætta við staðfestingu og breyta aftur pöntun, smellið á hlekkinn hér að neðan:
+{{cancel_url}}
+
+Hér er svo nákvæmur listi yfir pantaða hluti:
+{% for item in items %}- {{item['quantity']}}x {{item['item_name']}} (vörunúmer {{item['vendor_id']}}) samtals {{"{:,.0f}".format(item['total_price_isk']).replace(",",".")}} krónur
+{% endfor %}

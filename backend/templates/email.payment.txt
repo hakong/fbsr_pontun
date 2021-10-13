@@ -1,0 +1,27 @@
+{% raw %}Sæl(l) {{name}},
+
+Nú er sending frá {{vendor}} komin í hús og tilbúin til afgreiðslu.
+Af þinni pöntun fékkstu {{received_qty}} af {{ordered_qty}} {% if ordered_qty == 1 %}hlut{% else %}hlutum{% endif %} sem voru pantaðir.
+
+Í sendingingunni kom:
+{% for item in items_received %}- {{item['quantity']}}x {{item['item_name']}} (vörunúmer {{item['vendor_id']}}, samtals {{item['actual_total_cost']|isk}})
+{% endfor %}
+
+{% if items_not_received|length > 0 %}
+Það sem kom ekki/var ekki til:
+{% for item in items_not_received %}- {{item['missing_quantity']}}/{{item['ordered_quantity']}}x {{item['item_name']}} (vörunúmer {{item['vendor_id']}}){% endfor %}{% endif %}
+
+Samtals gerir þetta því {{total_cost|isk}} en áætluð upphæð var {{estimated_cost|isk}}
+{% if total_payments > 0 %}
+Þú hefur þegar greitt {{total_payments|isk}}, svo eftirstöðvar eru {{remainder|isk}}
+{% endif %}
+
+Eftirfarndi eru millifærslu upplýsingar:
+  Upphæð: {{remainder|isk}}
+  Reikningur:	{{account}}
+  Kennitala:	{{kt}}
+  Tilkynning:	{{receipt_email}}
+  Skýring:		{{vendor}}
+
+Kveðja,
+Pöntunarálfanir{% endraw %}

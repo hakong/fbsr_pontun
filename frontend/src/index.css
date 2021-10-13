@@ -1,0 +1,11 @@
+
+table ul { margin: 0; }
+table input.form-control { width: 100px; }
+
+table td.column-price { min-width: 14rem; }
+table td.column-priceisk { min-width: 6rem; }
+table td.column-button { min-width: 7rem; text-align: center; }
+table td.column-button2 { min-width: 9rem; text-align: center; }
+table td.column-input { min-width: 4rem; }
+table td.column-input input { width: 4rem; }
+table td.column-sku { min-width: 4rem; }
