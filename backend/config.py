@@ -1,3 +1,5 @@
+import os
+import os.path
 
 # Fill out in local_config.py
 HOSTNAME = ''
