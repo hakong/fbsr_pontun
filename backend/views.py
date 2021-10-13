@@ -85,7 +85,7 @@ def signup():
 def cancel():
     token = flask.request.args.get("token")
     conn, cur = get_db()
-    cur.execute("SELECT l.id, l.title, l.opens, l.closes, l.signup_key, lm.id AS listing_member_id, lm.name, lm.email, lm.locked, lm.confirmed, lm.listing_key FROM listings l INNER JOIN listing_members lm ON lm.listing_id = l.id WHERE (lm.confirmation_key = %(ck)s AND lm.confirmation_key IS NOT NULL) OR (lm.listing_key = %(ck)s AND lm.confirmation_key IS NULL AND lm.listing_key IS NOT NULL) AND l.opens < current_timestamp AND l.closes >= current_timestamp", {'ck': token})
+    cur.execute("SELECT l.id, l.title, l.opens, l.closes, lm.id AS listing_member_id, lm.name, lm.email, lm.locked, lm.confirmed, lm.listing_key FROM listings l INNER JOIN listing_members lm ON lm.listing_id = l.id WHERE (lm.confirmation_key = %(ck)s AND lm.confirmation_key IS NOT NULL) OR (lm.listing_key = %(ck)s AND lm.confirmation_key IS NULL AND lm.listing_key IS NOT NULL) AND l.opens < current_timestamp AND l.closes >= current_timestamp", {'ck': token})
     res = cur.fetchone()
     if res is None:
         return flask.render_template('404.html', error='Engin gild pöntun fannst fyrir þennan lykil.'), 404
@@ -114,7 +114,7 @@ def cancel():
                 heading="Hætt við pöntun", 
                 alert="success", 
                 message="Pöntun hefur verið eytt. Ef þér snýst hugur þá má fara aftur á skráningarsíðu pöntunar til að hefja pöntunarferli frá byrjun.",
-                url=f"/b/signup?token={res['signup_key']}"
+                url=f"/"
             )
 
 
