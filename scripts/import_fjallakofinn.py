@@ -8,21 +8,27 @@ conn = psycopg2.connect("dbname=fbsr_pontun user=fbsr_pontun host=127.0.0.1 pass
 cur  = conn.cursor()
 
 def main(listing_id, filename):
-    df = pd.read_csv(filename)
+    df = pd.read_excel(filename)
+    col_vendor_id=0
+    col_name=1
+    col_desc=2
+    col_price=4
+
+    df.iloc[:,col_price] = pd.to_numeric(df.iloc[:,col_price], errors='coerce')
 
     saved, skipped, added = 0, 0, set()
     for idx, row in df.iterrows():
-        name, email, kt = row['Name'], row['Email'], row['Reference']
-        if pd.isnull(kt) or len(kt) not in (10, 11):
-            print(f"Skipping {name:30s} - kennitala skrytin <{kt}>")
-            continue
-        if "@" not in str(email) or email in added:
-            print(f"Skipping {name:30s} - email vantar eda thegar skrad <{email}>")
-            continue
+        vendor_id = row.iloc[col_vendor_id]
+        name      = row.iloc[col_name]
+        desc      = row.iloc[col_desc]
+        price     = row.iloc[col_price]
 
-        cur.execute(f"INSERT INTO listing_members (listing_id, name, email) VALUES (%s, %s, %s)", (listing_id, name, email))
-        added.add(email)
-        saved += 1
+        if not pd.isnull(price):
+            cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description) VALUES (%s, %s, %s, %s, %s)", (listing_id, name, vendor_id, price, desc))
+            saved += 1
+        else:
+            print(f"Skipped row item {name}")
+            skipped += 1
     print(f"Saved {saved} skipped {skipped}")
     conn.commit()
     import pdb; pdb.set_trace()

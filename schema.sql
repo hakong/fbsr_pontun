@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS items (
 	vendor_id character varying(1000) NOT NULL,
 	vendor_url character varying (1000) NULL,
 	vendor_img_url character varying(1000) NULL,
+	description text NOT NULL DEFAULT '',
 	price double precision NOT NULL,
 	UNIQUE(listing_id, vendor_id)
 );
