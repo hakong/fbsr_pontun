@@ -9,3 +9,5 @@ table td.column-button2 { min-width: 9rem; text-align: center; }
 table td.column-input { min-width: 4rem; }
 table td.column-input input { width: 4rem; }
 table td.column-sku { min-width: 4rem; }
+
+p.description { font-size: x-small; margin: 0; font-style: italic; }

@@ -22,6 +22,7 @@ def main(listing_id, filename):
         name      = row.iloc[col_name]
         desc      = row.iloc[col_desc]
         price     = row.iloc[col_price]
+        desc      = "" if pd.isnull(desc) else desc
 
         if not pd.isnull(price):
             cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description) VALUES (%s, %s, %s, %s, %s)", (listing_id, name, vendor_id, price, desc))

@@ -32,16 +32,31 @@ class Entry extends React.Component {
 				properties = <ul className="list-inline">{_props}</ul>;
 				br = <br />;
 			}
+			let desc = "";
+			let br2 = "";
+			if (this.props.entry.description.length > 0) {
+				desc = <p className="description">{this.props.entry.description}</p>;
+				br2 = <br />;
+			}
+
+			let price = <span>{this.props.entry.price.toLocaleString()} {this.props.entry.currency} &rarr; {Math.round(this.props.entry.price_isk).toLocaleString()} ISK</span>;
+			if (this.props.entry.price === this.props.entry.price_isk) {
+				price = <span>{Math.round(this.props.entry.price_isk).toLocaleString()} ISK</span>;
+			}
+
+
 			//const properties = "properties";
 			return (
 				<tr className="">
 					<td key="id" className="column-sku">{this.props.entry.vendor_id}</td>
 					<td key="name">
 						<a target="_blank" rel="noopener noreferrer" href={this.props.entry.url}>{this.props.entry.item_name}</a>
+						{br2}
+						{desc}
 						{br}
 						{properties}
 					</td>
-					<td key="price" className="column-price">{this.props.entry.price.toLocaleString()} {this.props.entry.currency} &rarr; {Math.round(this.props.entry.price_isk).toLocaleString()} ISK</td>
+					<td key="price" className="column-price">{price}</td>
 					<td key="form" className="column-input">
 						<input key="0" className="form-control form-control-sm" type="number" onChange={this.changeQuantity} defaultValue="1" min="0"/>
 					</td>
@@ -133,6 +148,7 @@ class CartItem extends React.Component {
 
 	render() {
 		const properties = this.props.item.properties.map((value, key) => <li className="list-inline-item small" key={value.adjusted}><span>{value.adjusted}: </span><span className="font-weight-bold">{value.value}</span></li>).reduce((acc, x) => acc === null ? [x] : [acc, '| ', x], null);
+		let price = (this.props.item.price !== this.props.item.price_isk) ? (<span>{this.props.item.price.toLocaleString()} {this.props.item.currency} &rarr; {Math.round(this.props.item.price_isk).toLocaleString()} ISK</span>) : (<span>{Math.round(this.props.item.price_isk).toLocaleString()} ISK</span>);
 		return (
 			<tr className={this.state.saved ? '' : ' table-warning'}>
 				<td key="id" className="column-sku">{this.props.item.vendor_id}</td>
@@ -140,7 +156,7 @@ class CartItem extends React.Component {
 					<a target="_blank" rel="noopener noreferrer" href={this.props.item.url}>{this.props.item.item_name}</a> <br />
 					<ul className="list-inline">{properties}</ul>
 				</td>
-				<td key="price" className="column-price">{this.props.item.price.toLocaleString()} {this.props.item.currency} &rarr; {Math.round(this.props.item.price_isk).toLocaleString()} ISK</td>
+				<td key="price" className="column-price">{price}</td>
 				<td key="quantity" className="column-input">
 					<input type="number" className="form-control form-control-sm" value={this.state.quantity} onChange={this.changeQuantity} min="0" /> 
 				</td>

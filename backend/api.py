@@ -505,6 +505,7 @@ def listing_items(listing):
                 i.vendor_id, 
                 i.vendor_url, 
                 i.vendor_url || '?number=' || i.vendor_id AS url,
+                i.description,
                 i.price, 
                 l.currency, 
                 i.price*l.exchange_rate as price_isk, 
