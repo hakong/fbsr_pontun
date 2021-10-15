@@ -370,7 +370,7 @@ class Listing extends React.Component {
 							<div> 
 								<div className="form-group">
 									<label htmlFor="listing-search">Leita í vörulista:</label>
-									<input type="text" className="form-control m-3" id="listing-search" onChange={this.handleSearch} />
+									<input type="text" className="form-control my-2" id="listing-search" onChange={this.handleSearch} />
 								</div>
 							</div>
 						</form>
