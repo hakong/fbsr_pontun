@@ -4,10 +4,10 @@
 source local_env.sh
 
 scp -P $SSH_PORT schema.sql ${SSH_USERNAME}@${SSH_HOSTNAME}: 
-tar -f - -c --exclude="__pycache__" backend mailer.py | ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT tar -x -f -
+tar -f - -c --exclude="__pycache__" --exclude="local_config.py" backend mailer.py | ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT tar -x -f -
 ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT killall gunicorn
 ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT killall python
-tar -f - -c scrapers | ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT tar -x -f -
+tar -f - -c scripts | ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT tar -x -f -
 
 ssh ${SSH_USERNAME}@${SSH_HOSTNAME} -p $SSH_PORT rm -r build
 cd frontend
