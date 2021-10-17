@@ -175,7 +175,7 @@ def payments_email(listing_id):
         template_renderfor = int(body.get("template_renderfor", candidates_ids[0]))
         assert template_renderfor in candidates_ids, f"{template_renderfor} not in {candidates_ids}"
         template_str = body.get("template", flask.render_template(f"email.{sample}.txt").strip())
-        template_rendered = flask.render_template_string(template_str, **get_member_details(template_renderfor))
+        template_rendered = flask.render_template_string(template_str, **get_member_details(template_renderfor), **app.config['TEMPLATE_VARS'])
         candidates_choice = [int(x) for x in body.get("candidates_choice", candidates_ids) if int(x) in candidates_ids]
 
         if body.get("send", False):
