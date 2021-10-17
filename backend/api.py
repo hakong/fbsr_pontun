@@ -510,7 +510,7 @@ def listing_items(listing):
                 l.currency, 
                 i.price*l.exchange_rate as price_isk, 
                 ARRAY(SELECT row_to_json(t) FROM (SELECT it.original, it.adjusted, it.value FROM item_properties it WHERE it.item_id=i.id) AS t) AS properties,
-                i.vendor_id || ' ' || i.item_name || ' ' || COALESCE((SELECT STRING_AGG(value, ' ') FROM (SELECT it.value FROM item_properties it WHERE it.item_id=i.id) AS tbl), '') AS search_str 
+                i.vendor_id || ' ' || i.item_name || ' ' || i.description || ' ' || COALESCE((SELECT STRING_AGG(value, ' ') FROM (SELECT it.value FROM item_properties it WHERE it.item_id=i.id) AS tbl), '') AS search_str 
             FROM items i 
                 INNER JOIN listings l ON l.id = i.listing_id 
                 INNER JOIN listing_members lm ON l.id = lm.listing_id 
