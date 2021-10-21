@@ -15,9 +15,6 @@ LISTING_FRONTEND_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'fronten
 ADMIN_FRONTEND_FOLDER   = os.path.join(os.path.dirname(__file__), '..', 'admin',    'build')
 DATABASE = dict(database='fbsr_pontun', user='fbsr_pontun', host='127.0.0.1')
 
-REDIS = dict(host='localhost', db=1, port=6379)
-REDIS_EMAIL_KEY = 'fbsr_pontun-email-queue'
-
 TEMPLATE_VARS = {'account': '', 'kt': '', 'receipt_email': ''}
 
 try:

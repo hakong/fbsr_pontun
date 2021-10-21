@@ -6,7 +6,7 @@ import pickle
 
 import flask
 
-from . import app, helpers, get_db, get_redis
+from . import app, helpers, get_db
 
 
 logger = logging.getLogger(__name__)
@@ -83,7 +83,5 @@ def queue_email(member_id, subject, content):
     cur.execute("INSERT INTO emails (listing_member_id, scheduled, subject, body) VALUES (%s, current_timestamp, %s, %s) RETURNING id", (member_id, subject, content))
     conn.commit()
     id = cur.fetchone()["id"]
-    if cur.rowcount == 1:
-        get_redis().lpush(app.config['REDIS_EMAIL_KEY'], pickle.dumps(id))
 
 

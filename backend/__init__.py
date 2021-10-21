@@ -7,7 +7,6 @@ from flask.json import JSONEncoder
 import psycopg2
 import psycopg2.extras
 import psycopg2.pool
-import redis
 
 
 logger = logging.getLogger(__name__)
@@ -41,9 +40,6 @@ def get_db():
     if 'db' not in g:
         g.db = app.config['pgpool'].getconn()
     return g.db, g.db.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-def get_redis():
-    return redis.Redis(**app.config['REDIS'])
 
 #conn = psycopg2.connect(app.config['DATABASE'])
 #cur  = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
