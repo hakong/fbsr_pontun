@@ -17,7 +17,7 @@ def main(listing_id, filename):
             print(f"Skipping {name:30s} - kennitala skrytin <{kt}>")
             continue
         if "@" not in str(email) or email in added:
-            print(f"Skipping {name:30s} - email vantar eda thegar skrad <{email}>")
+            print(f"Skipping {name:30s} - email vantar eda thegar skrad <{email}> <{kt}>")
             continue
 
         cur.execute(f"INSERT INTO listing_members (listing_id, name, email) VALUES (%s, %s, %s)", (listing_id, name, email))
@@ -41,5 +41,5 @@ def main(listing_id, filename):
 
 
 if __name__ == "__main__":
-    assert len(sys.argv) > 2, "Missing listing id or filename"
+    assert len(sys.argv) > 2, "Usage import_memberlist.py <listing_id> <filename>"
     main(int(sys.argv[1]), sys.argv[2])

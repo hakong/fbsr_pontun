@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 import itertools
+import openpyxl
 
 import psycopg2
 
@@ -9,28 +10,34 @@ cur  = conn.cursor()
 
 def main(listing_id, filename):
     df = pd.read_excel(filename)
-    col_vendor_id=0
-    col_name=1
-    col_desc=2
-    col_price=4
-
-    df.iloc[:,col_price] = pd.to_numeric(df.iloc[:,col_price], errors='coerce')
-
+    workbook = openpyxl.load_workbook(filename, data_only=True)
+    worksheet = workbook.active
     saved, skipped, added = 0, 0, set()
-    for idx, row in df.iterrows():
-        vendor_id = row.iloc[col_vendor_id]
-        name      = row.iloc[col_name]
-        desc      = row.iloc[col_desc]
-        price     = row.iloc[col_price]
+    for row in range(1,worksheet.max_row+1):
+        _row = []
+        vendor_id = worksheet.cell(column=1, row=row).value
+        name      = worksheet.cell(column=2, row=row).value
+        try:
+            url       = worksheet.cell(column=2, row=row).hyperlink.target
+        except AttributeError:
+            url = None
+        desc      = worksheet.cell(column=3, row=row).value
+        try:
+            price     = float(worksheet.cell(column=5, row=row).value)
+        except (TypeError, ValueError):
+            price     = None
         desc      = "" if pd.isnull(desc) else desc
 
         if not pd.isnull(price):
-            cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description) VALUES (%s, %s, %s, %s, %s)", (listing_id, name, vendor_id, price, desc))
+            cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description, vendor_url) VALUES (%s, %s, %s, %s, %s, %s)", (listing_id, name, vendor_id, price, desc, url))
+            #print(f"{listing_id} : {name} : {vendor_id} : {price} : {desc} : {url}")
             saved += 1
         else:
-            print(f"Skipped row item {name}")
+            if not pd.isnull(vendor_id):
+                print(f"Skipped row item {vendor_id} : {name}")
             skipped += 1
-    print(f"Saved {saved} skipped {skipped}")
+    print(f"Saved {saved} skipped {skipped} pandas df has {df.loc[~pd.isnull(pd.to_numeric(df.iloc[:,4], errors='coerce'))].shape[0]} rows")
+
     conn.commit()
     import pdb; pdb.set_trace()
     #        cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, vendor_url, price) VALUES ({listing_id}, %s, %s, %s, %s) RETURNING id", (i['title'], i['sku'], i['url'], i['price']))
