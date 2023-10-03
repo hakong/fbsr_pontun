@@ -35,8 +35,8 @@ class Entry extends React.Component {
 			let desc = "";
 			let br2 = "";
 			if (this.props.entry.description.length > 0) {
-				desc = <p className="description">{this.props.entry.description}</p>;
-				br2 = <br />;
+				desc = <span className="description">{this.props.entry.description}</span>;
+				//br2 = <br />;
 			}
 
 			let price = <span>{this.props.entry.price.toLocaleString()} {this.props.entry.currency} &rarr; {Math.round(this.props.entry.price_isk).toLocaleString()} ISK</span>;
@@ -359,6 +359,7 @@ class Listing extends React.Component {
 						<p>Athugið að þetta er þín persónuleg pöntunarsíða. Vinsamlegast ekki áframsenda hlekkinn á aðra - þá geta viðkomandi breytt þinni pöntun.</p>
 						<p>Þegar þú ert búin(n) að fylla út pöntun, smelltu þá á staðfesta pöntun hér fyrir neðan. Við það munt þú fá tölvupóst þar sem þú ert beðin(n) um að fara yfir pantaða hluti og staðfesta pöntun með að smella á viðeigandi hlekk. Eftir að pöntun hefur verið staðfest hér á síðunni verður henni ekki breytt.</p>
 						<p><strong>Athugið að verð hér eru einungis áætluð og geta breyst með gengi, flutningkostnaði eða öðrum slíkum þáttum.</strong></p>
+						<p><strong>Athugið ennfremur að kaup hér eru skuldbindandi og <em>verður ekki skilað eða breytt</em> eftir að pöntunarfrestur er liðinn.</strong></p>
 						<h2>Karfa 
 							<button disabled={this.state.cart.length < 1} className="btn btn-primary btn-sm m-2" onClick={this.handleShowConfirmModal}>Hefja staðfestingarferli</button>
 							<button type="button" className="btn btn-warning btn-sm m-2" onClick={this.handleShowCancelModal}>Hætta við pöntun</button>

@@ -13,6 +13,7 @@ def main(listing_id, filename):
     workbook = openpyxl.load_workbook(filename, data_only=True)
     worksheet = workbook.active
     saved, skipped, added = 0, 0, set()
+    category = None
     for row in range(1,worksheet.max_row+1):
         _row = []
         vendor_id = worksheet.cell(column=1, row=row).value
@@ -29,12 +30,18 @@ def main(listing_id, filename):
         desc      = "" if pd.isnull(desc) else desc
 
         if not pd.isnull(price):
-            cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description, vendor_url) VALUES (%s, %s, %s, %s, %s, %s)", (listing_id, name, vendor_id, price, desc, url))
+            cur.execute(f"INSERT INTO items (listing_id, item_name, vendor_id, price, description, vendor_url) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id", (listing_id, name, vendor_id, price, desc, url))
+            item_id = cur.fetchone()[0]
+            if category is not None:
+                cur.execute(f"INSERT INTO item_properties (item_id, original, adjusted, value) VALUES (%s, %s, %s, %s)", (item_id, "Flokkur", "Flokkur", category)) 
             #print(f"{listing_id} : {name} : {vendor_id} : {price} : {desc} : {url}")
             saved += 1
         else:
             if not pd.isnull(vendor_id):
                 print(f"Skipped row item {vendor_id} : {name}")
+                category = vendor_id
+                if category.startswith("Fjallahjól"):
+                    category = "Fjallahjól"
             skipped += 1
     print(f"Saved {saved} skipped {skipped} pandas df has {df.loc[~pd.isnull(pd.to_numeric(df.iloc[:,4], errors='coerce'))].shape[0]} rows")
 

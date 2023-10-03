@@ -10,4 +10,4 @@ table td.column-input { min-width: 4rem; }
 table td.column-input input { width: 4rem; }
 table td.column-sku { min-width: 4rem; }
 
-p.description { font-size: x-small; margin: 0; font-style: italic; }
+span.description { font-size: small; padding-left: 1rem; margin: 0; font-style: italic; }
