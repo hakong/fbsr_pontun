@@ -1,31 +1,30 @@
-import sys
-import pandas as pd
-import itertools
-import openpyxl
+    import sys
+    import pandas as pd
+    import itertools
+    import openpyxl
 
-import psycopg2
+    import psycopg2
 
-conn = psycopg2.connect("dbname=fbsr_pontun user=fbsr_pontun host=127.0.0.1 password=''")
-cur  = conn.cursor()
+    conn = psycopg2.connect("dbname=fbsr_pontun user=fbsr_pontun host=127.0.0.1 password=''")
+    cur  = conn.cursor()
 
-def main(listing_id, filename):
-    df = pd.read_excel(filename)
-    workbook = openpyxl.load_workbook(filename, data_only=True)
-    worksheet = workbook.active
-    saved, skipped, added = 0, 0, set()
-    category = None
-    for row in range(1,worksheet.max_row+1):
-        _row = []
-        vendor_id = worksheet.cell(column=1, row=row).value
-        name      = worksheet.cell(column=2, row=row).value
-        try:
-            url       = worksheet.cell(column=2, row=row).hyperlink.target
-        except AttributeError:
-            url = None
-        desc      = worksheet.cell(column=3, row=row).value
-        try:
-            price     = float(worksheet.cell(column=5, row=row).value)
-        except (TypeError, ValueError):
+    def main(listing_id, filename):
+        workbook = openpyxl.load_workbook(filename, data_only=True)
+        worksheet = workbook.active
+        saved, skipped, added = 0, 0, set()
+        category = None
+        for row in range(1,worksheet.max_row+1):
+            _row = []
+            vendor_id = worksheet.cell(column=1, row=row).value
+            name      = worksheet.cell(column=2, row=row).value
+            try:
+                url       = worksheet.cell(column=2, row=row).hyperlink.target
+            except AttributeError:
+                url = None
+            desc      = worksheet.cell(column=3, row=row).value
+            try:
+                price     = float(worksheet.cell(column=5, row=row).value)
+            except (TypeError, ValueError):
             price     = None
         desc      = "" if pd.isnull(desc) else desc
 

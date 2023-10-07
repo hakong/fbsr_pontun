@@ -65,7 +65,7 @@ def authenticate_admin(f):
         try:
             admin_key = flask.request.headers.get('Authorization', "").split(" ")[1].strip()
         except IndexError:
-            admin_key = None
+            admin_key = flask.request.args.get("token", None)
 
         if admin_key == app.config['ADMIN_PASSWORD']:
             return f(*args, **kwargs)

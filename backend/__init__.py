@@ -53,4 +53,5 @@ def close_conn(e):
         app.config['pgpool'].putconn(db)
 
 from . import views
+from . import admin
 from . import api

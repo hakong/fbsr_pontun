@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% block main %}
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Nafn pöntunar</th>
+        <th>Opnar</th>
+        <th>Lokar</th>
+        <th>Gjaldmiðill</th>
+        <th>Gengi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in listings %}
+      <tr>
+        <td>#{{ l.id }}</td>
+        <td><a href="{{ url_for('admin_listing', id=l.id, token=token) }}">{{ l.title }}</a></td>
+        <td>{{ l.opens}}</td>
+        <td>{{ l.closes }}</td>
+        <td>{{ l.currency }}</td>
+        <td>{{ l.exchange_rate }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

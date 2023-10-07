@@ -23,7 +23,7 @@
         <div class="col-sm-10">
           <select class="form-control" id="listing" name="listing">
             {% for listing in listings %}
-            <option value="{{listing.id}}" {% if listing.selected %}selected="selected"{% endif %}>{{listing.title}}</option>
+            <option value="{{listing.id}}" {% if listing.selected %}selected="selected"{% endif %}>{{listing.title}} (lokar {{listing.closes.strftime("%Y-%m-%d %H:%M")}})</option>
             {% endfor %}
           </select>
           <small id="listingHelp" class="form-text text-muted">Einungis opnar pantanir sjást í þessum lista.</small>

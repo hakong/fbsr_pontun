@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% block main %}
+
+
+  <ul>
+    <li>#{{ listing.id }}</li>
+    <li>{{ listing.title }}</li>
+    <li>{{ listing.opens }}</li>
+    <li>{{ listing.closes }}</li>
+    <li>{{ listing.currency }}</li>
+    <li>{{ listing.exchange_rate }}</li>
+  </ul>
+{% endblock %}
