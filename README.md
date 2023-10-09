@@ -15,3 +15,29 @@ Til að keyra upp development server:
     
     cd admin
     npm start
+
+## [Docker/Podman](README.docker.md)
+
+### Environment file example:
+
+```sh
+# Web settings
+WEB_HOSTNAME=pontun.fbsr.is
+ADMIN_PASSWORD=
+
+# SMTP settings
+SMTP_PASSWORD=
+SMTP_SERVER=smtp.gmail.com
+EMAIL_FROM=
+
+# Database settings
+DB_NAME=fbsr_pontun
+DB_USER=fbsr_pontun
+DB_HOST=127.0.0.1
+DB_PASSWORD=
+
+# Template vars (assuming you might want to override them in the future)
+TEMPLATE_ACCOUNT=
+TEMPLATE_KT=
+TEMPLATE_RECEIPT_EMAIL=
+```
