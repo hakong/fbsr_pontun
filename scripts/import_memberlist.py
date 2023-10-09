@@ -4,7 +4,15 @@ import itertools
 
 import psycopg2
 
-conn = psycopg2.connect("dbname=fbsr_pontun user=fbsr_pontun host=127.0.0.1 password=''")
+# Fetch environment variables
+dbname = os.environ.get('DB_NAME', 'fbsr_pontun')
+user = os.environ.get('DB_USER', 'fbsr_pontun')
+host = os.environ.get('DB_HOST', '127.0.0.1')
+password = os.environ.get('DB_PASSWORD', '')
+
+# Use the environment variables in the connection string
+conn = psycopg2.connect(f"dbname={dbname} user={user} host={host} password={password}")
+
 cur  = conn.cursor()
 
 def main(listing_id, filename):
