@@ -31,10 +31,10 @@ SMTP_SERVER=smtp.gmail.com
 EMAIL_FROM=
 
 # Database settings
-DB_NAME=fbsr_pontun
-DB_USER=fbsr_pontun
-DB_HOST=127.0.0.1
-DB_PASSWORD=
+POSTGRES_DB=fbsr_pontun
+POSTGRES_USER=fbsr_pontun
+POSTGRES_HOST=postgres
+POSTGRES_PASSWORD=
 
 # Template vars (assuming you might want to override them in the future)
 TEMPLATE_ACCOUNT=

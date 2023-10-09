@@ -14,10 +14,10 @@ EMAIL_FROM = os.environ.get('EMAIL_FROM', '')
 LISTING_FRONTEND_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'build')
 ADMIN_FRONTEND_FOLDER   = os.path.join(os.path.dirname(__file__), '..', 'admin',    'build')
 DATABASE = {
-    'database': os.environ.get('DB_NAME', 'fbsr_pontun'),
-    'user': os.environ.get('DB_USER', 'fbsr_pontun'),
-    'host': os.environ.get('DB_HOST', '127.0.0.1'),
-    'password': os.environ.get('DB_PASSWORD', '')  # Defaulting to empty string if not set
+    'database': os.environ.get('POSTGRES_DB', 'fbsr_pontun'),
+    'user': os.environ.get('POSTGRES_USER', 'fbsr_pontun'),
+    'host': os.environ.get('POSTGRES_HOST', '127.0.0.1'),
+    'password': os.environ.get('POSTGRES_PASSWORD', '')  # Defaulting to empty string if not set
 }
 
 TEMPLATE_VARS = {

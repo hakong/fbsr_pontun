@@ -6,10 +6,10 @@ import openpyxl
 import psycopg2
 
 # Fetch environment variables
-dbname = os.environ.get('DB_NAME', 'fbsr_pontun')
-user = os.environ.get('DB_USER', 'fbsr_pontun')
-host = os.environ.get('DB_HOST', '127.0.0.1')
-password = os.environ.get('DB_PASSWORD', '')
+dbname = os.environ.get('POSTGRES_DB', 'fbsr_pontun')
+user = os.environ.get('POSTGRES_USER', 'fbsr_pontun')
+host = os.environ.get('POSTGRES_HOST', '127.0.0.1')
+password = os.environ.get('POSTGRES_PASSWORD', '')
 
 # Use the environment variables in the connection string
 conn = psycopg2.connect(f"dbname={dbname} user={user} host={host} password={password}")
