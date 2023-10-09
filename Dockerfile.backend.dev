@@ -1,0 +1,19 @@
+# Use an official Python image as the base image
+FROM docker.io/library/python
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the backend directory into the container
+COPY --chown=1001:1001 backend/ backend/
+
+# Install Flask and other potential dependencies
+RUN pip install flask psycopg2 flask_json
+
+# Set the Flask app environment variable
+ENV FLASK_APP=backend
+
+# Expose the Flask default port
+EXPOSE 5000
+
+CMD ["flask", "run", "--host=0.0.0.0"]

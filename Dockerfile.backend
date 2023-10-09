@@ -1,0 +1,20 @@
+# Use an official Python image as the base image
+FROM docker.io/library/python
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the backend directory into the container
+COPY --chown=1001:1001 backend/ backend/
+
+# Install the dependencies
+RUN pip install --no-cache-dir -r backend/requirements.txt
+
+# Set the Flask app environment variable
+ENV FLASK_APP=backend
+
+# Expose the Flask default port
+EXPOSE 5000
+
+# Use Gunicorn as the production server
+CMD ["gunicorn", "backend:app", "--bind", "0.0.0.0:5000", "--workers", "4"]

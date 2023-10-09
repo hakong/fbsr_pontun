@@ -1,0 +1,14 @@
+# Use an official Node.js image as the base image
+FROM docker.io/library/node
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy the frontend directory into the container
+COPY --chown=1001:1001 frontend/ .
+
+# Install npm packages
+RUN npm install
+
+# Start the React application
+CMD ["npm", "start"]

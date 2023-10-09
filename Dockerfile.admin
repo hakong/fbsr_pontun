@@ -1,0 +1,26 @@
+# Use an official Node.js image as the base image
+FROM docker.io/library/node AS build
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# Copy the frontend directory into the container
+COPY --chown=1001:1001 admin/ .
+
+# Install npm packages
+RUN npm install
+
+# Build the React application for production
+RUN npm run build
+
+# Production stage: Serve the static files
+FROM docker.io/library/node
+
+# Install serve to serve static files
+RUN npm install -g serve
+
+# Copy the build directory from the previous stage
+COPY --from=build /usr/src/app/build /usr/src/app/build
+
+# Start the server
+CMD ["serve", "-s", "/usr/src/app/build", "-l", "3001"]
