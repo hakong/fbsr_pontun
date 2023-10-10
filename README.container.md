@@ -1,4 +1,18 @@
-# Docker / Podman:
+# Podman
+
+## Requirements
+Red Hat / CentOS:
+```
+dnf install podman podman-compose
+```
+
+Debian / Ubuntu:
+```
+apt install podman podman-compose
+mkdir -p $HOME/.config/containers
+echo 'unqualified-search-registries=["docker.io", "quay.io"]' > $HOME/.config/containers/registries.conf
+```
+
 ## Building and Running
 ### Development
 
@@ -33,19 +47,19 @@ podman-compose -f docker-compose.prod.yml up
 
 #### 3. Running the stack as a service (rootless)
 
-## Cleaning up Docker and Podman Resources
+## Cleaning up Podman Resources
 
 When working with containerized applications, it's common to accumulate old or unused images, containers, volumes, and networks.
 
 Remove all unused containers, networks, images (both dangling and unused), and build cache
 ```
-docker system prune -a
+podman system prune -a
 ```
 
 Remove all stopped containers, unsued networks and volumes, dangling images:
 ```
-docker container prune
-docker network prune
-docker image prune
-docker volume prune
+podman container prune
+podman network prune
+podman image prune
+podman volume prune
 ```

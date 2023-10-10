@@ -16,7 +16,7 @@ Til að keyra upp development server:
     cd admin
     npm start
 
-## [Docker/Podman](README.docker.md)
+## [Podman](README.container.md)
 
 ### Environment file:
 
