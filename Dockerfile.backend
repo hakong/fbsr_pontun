@@ -18,3 +18,7 @@ EXPOSE 8000
 
 # Use Gunicorn as the production server
 CMD ["gunicorn", "backend:app", "--bind", "0.0.0.0:8000", "--workers", "4"]
+
+# Add healthcheck
+HEALTHCHECK --interval=5m --timeout=3s \
+CMD curl --fail http://localhost:8000/api/healthcheck || exit 1

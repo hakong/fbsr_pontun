@@ -536,3 +536,7 @@ def listings():
     listings = [dict(x) for x in cur.fetchall()]
 
     return dict(listings=listings)
+
+@app.route('/api/healthcheck', methods=['GET'])
+def healthcheck():
+    return {"status": "healthy"}, 200
