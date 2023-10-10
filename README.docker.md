@@ -5,24 +5,23 @@
 To build and run the application in a development environment, use the following commands:
 
 ```bash
-podman-compose -f docker-compose.dev.yml build
-podman-compose -f docker-compose.dev.yml up
+podman-compose -f docker-compose.dev.yml up --build
 ```
 
 ### Production
 #### 1. forward Privileged Ports to Unprivileged Ports:
 #### firewall-cmd:
 ~~~
-firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080 --permanent
-firewall-cmd --add-forward-port=port=443:proto=tcp:toport=8443 --permanent
+firewall-cmd --add-forward-port=port=80:proto=tcp:toport=10080 --permanent
+firewall-cmd --add-forward-port=port=443:proto=tcp:toport=10443 --permanent
 firewall-cmd --reload
 ~~~
 
 #### iptables:
 Note: replace `eth0` with your interface
 ~~~
-iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
-iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8443
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 10080
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 10443
 ~~~
 
 #### 2. To build and run the application in a production environment:
@@ -30,11 +29,6 @@ iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8
 ```bash
 podman-compose -f docker-compose.prod.yml build
 podman-compose -f docker-compose.prod.yml up
-```
-If you have your own proxy:
-```bash
-podman-compose -f docker-compose.prod-no-caddy.yml build
-podman-compose -f docker-compose.prod-no-caddy.yml up
 ```
 
 #### 3. Running the stack as a service (rootless)

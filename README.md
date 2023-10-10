@@ -18,7 +18,13 @@ Til að keyra upp development server:
 
 ## [Docker/Podman](README.docker.md)
 
-### Environment file example:
+### Environment file:
+
+The `docker-compose*.yml` files use `.env.development.local` and `.env.production.local`.
+
+Please create them from the example below.
+
+#### Example:
 
 ```sh
 # Web settings
