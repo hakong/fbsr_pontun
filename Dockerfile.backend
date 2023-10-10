@@ -13,8 +13,8 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 # Set the Flask app environment variable
 ENV FLASK_APP=backend
 
-# Expose the Flask default port
-EXPOSE 5000
+# Expose the Flask port
+EXPOSE 8000
 
 # Use Gunicorn as the production server
-CMD ["gunicorn", "backend:app", "--bind", "0.0.0.0:5000", "--workers", "4"]
+CMD ["gunicorn", "backend:app", "--bind", "0.0.0.0:8000", "--workers", "4"]

@@ -13,7 +13,7 @@ RUN pip install flask psycopg2 flask_json
 # Set the Flask app environment variable
 ENV FLASK_APP=backend
 
-# Expose the Flask default port
-EXPOSE 5000
+# Expose the Flask port
+EXPOSE 8000
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8000"]
